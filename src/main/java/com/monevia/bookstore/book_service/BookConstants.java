@@ -9,5 +9,6 @@ public class BookConstants {
     public static final String PRICE_NOT_POSITIVE = "Price must be zero or positive";
     public static final String GENRE_IS_REQUIRED = "Genre is required";
     public static final String BOOK_NOT_FOUND = "Book not found";
-    public static final String BOOK_DELETED = "The book was deleted successfully";
+    public static final String BOOK_UPDATED = "Book updated successfully";
+    public static final String BOOK_DELETED = "Book deleted successfully";
 }
