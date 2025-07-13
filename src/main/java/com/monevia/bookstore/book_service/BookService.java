@@ -18,18 +18,27 @@ public class BookService {
         return book.getId();
     }
 
-    public GetBookDTO getBook(String id) {
-        Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, BookConstants.BOOK_NOT_FOUND));
-
+    public GetBookDTO getBook(String bookId) {
+        Book book = bookRepository.findById(bookId).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        BookConstants.BOOK_NOT_FOUND));
         return new GetBookDTO(book.getTitle(), book.getPrice());
     }
 
-    public String deleteBook(String id) {
-        if (!bookRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, BookConstants.BOOK_NOT_FOUND);
+    public void updateBook(String bookId, UpdateBookDTO updateBookDTO) {
+        Book book = bookRepository.findById(bookId).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND,
+                        BookConstants.BOOK_NOT_FOUND));
+        book.setPrice(updateBookDTO.getPrice());
+        bookRepository.save(book);
+    }
+
+    public String deleteBook(String bookId) {
+        if (!bookRepository.existsById(bookId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+                    BookConstants.BOOK_NOT_FOUND);
         }
-        bookRepository.deleteById(id);
+        bookRepository.deleteById(bookId);
         return BookConstants.BOOK_DELETED;
     }
 }
