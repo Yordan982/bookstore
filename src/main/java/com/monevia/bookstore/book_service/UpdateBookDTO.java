@@ -1,10 +1,10 @@
 package com.monevia.bookstore.book_service;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 
 public class UpdateBookDTO {
-    @NotNull(message = BookConstants.PRICE_IS_REQUIRED)
+    @NotBlank(message = BookConstants.PRICE_IS_REQUIRED)
     @PositiveOrZero(message = BookConstants.PRICE_NOT_POSITIVE)
     private Double price;
 
