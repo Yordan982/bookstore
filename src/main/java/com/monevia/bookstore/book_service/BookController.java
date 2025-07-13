@@ -20,20 +20,35 @@ public class BookController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Map<String, String>> createBook(@RequestBody @Valid CreateBookDTO createBookDTO) {
+    public ResponseEntity<Map<String, String>> createBook(
+            @RequestBody
+            @Valid CreateBookDTO createBookDTO) {
         String newBookId = bookService.createBook(createBookDTO);
         Map<String, String> responseBody = Map.of("id", newBookId);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
     }
 
     @GetMapping(value = "/{book_id}/details", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<GetBookDTO> getBook(@PathVariable String book_id) {
+    public ResponseEntity<GetBookDTO> getBook(
+            @PathVariable String book_id) {
         GetBookDTO bookDTO = bookService.getBook(book_id);
         return ResponseEntity.ok(bookDTO);
     }
 
+    @PatchMapping("/{book_id}/update")
+    public ResponseEntity<Map<String, String>> updateBook(
+            @PathVariable("book_id") String bookId,
+            @RequestBody @Valid UpdateBookDTO updateBookDTO) {
+        bookService.updateBook(bookId, updateBookDTO);
+        Map<String, String> response = Map.of(
+                "message", BookConstants.BOOK_UPDATED,
+                "book_id", bookId);
+        return ResponseEntity.ok(response);
+    }
+
     @DeleteMapping("/{book_id}/delete")
-    public ResponseEntity<Map<String, String>> deleteBook(@PathVariable String book_id) {
+    public ResponseEntity<Map<String, String>> deleteBook(
+            @PathVariable String book_id) {
         String message = bookService.deleteBook(book_id);
         return ResponseEntity.ok(Map.of("message", message));
     }
