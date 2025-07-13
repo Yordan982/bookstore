@@ -36,7 +36,7 @@ public class ErrorHandler {
     public ResponseEntity<Map<String, String>> handleResponseStatusException(ResponseStatusException ex) {
         return ResponseEntity
                 .status(ex.getStatusCode())
-                .body(Map.of(GlobalConstants.MESSAGE, Objects.requireNonNull(ex.getReason())));
+                .body(Map.of("message", Objects.requireNonNull(ex.getReason())));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
