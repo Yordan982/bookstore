@@ -14,6 +14,8 @@ public class Order {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(length = 36, nullable = false, unique = true)
     private String id;
+    @Column(name = "customer_id")
+    private String customerId;
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(
             name = "order_books",
@@ -28,7 +30,8 @@ public class Order {
     public Order() {
     }
 
-    public Order(List<String> bookIds, BigDecimal totalAmount, OrderStatus status) {
+    public Order(String customerId, List<String> bookIds, BigDecimal totalAmount, OrderStatus status) {
+        this.customerId = customerId;
         this.bookIds = bookIds;
         this.totalAmount = totalAmount;
         this.status = status;
@@ -40,6 +43,15 @@ public class Order {
 
     public Order setId(String id) {
         this.id = id;
+        return this;
+    }
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public Order setCustomerId(String customerId) {
+        this.customerId = customerId;
         return this;
     }
 

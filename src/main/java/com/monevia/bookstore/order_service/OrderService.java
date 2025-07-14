@@ -26,12 +26,12 @@ public class OrderService {
                 .map(Book::getId)
                 .toList();
         BigDecimal totalAmount = calculateTotalAmount(foundBooks);
-        Order order = createNewOrder(validBookIds, totalAmount);
+        Order order = createNewOrder(createOrderDTO.getCustomerId(), validBookIds, totalAmount);
         return orderRepository.save(order);
     }
 
-    private Order createNewOrder(List<String> bookIds, BigDecimal totalAmount) {
-        return new Order(bookIds, totalAmount, OrderStatus.CREATED);
+    private Order createNewOrder(String customerId, List<String> bookIds, BigDecimal totalAmount) {
+        return new Order(customerId, bookIds, totalAmount, OrderStatus.CREATED);
     }
 
     private BigDecimal calculateTotalAmount(List<Book> books) {
