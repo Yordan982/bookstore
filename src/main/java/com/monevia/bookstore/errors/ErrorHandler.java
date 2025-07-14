@@ -28,8 +28,9 @@ public class ErrorHandler {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleInvalidEnum(IllegalArgumentException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(GlobalConstants.INVALID_PARAMETER + ex.getMessage());
+    public ResponseEntity<Map<String, String>> handleInvalidEnum(IllegalArgumentException ex) {
+        Map<String, String> errorBody = Map.of("message", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorBody);
     }
 
     @ExceptionHandler(ResponseStatusException.class)
