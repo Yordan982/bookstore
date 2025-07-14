@@ -49,4 +49,11 @@ public class OrderService {
     private boolean userExists(String userId) {
         return userRepository.existsById(userId);
     }
+
+    public GetOrderDTO getOrder(String orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() ->
+                new IllegalArgumentException(OrderConstants.ORDER_NOT_FOUND));
+        List<String> booksIds = orderRepository.findBookIdsByOrderId(orderId);
+        return new GetOrderDTO(order.getCustomerId(), booksIds, order.getTotalAmount(), order.getStatus());
+    }
 }
