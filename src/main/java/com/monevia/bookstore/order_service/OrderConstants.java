@@ -6,6 +6,7 @@ public class OrderConstants {
     public static final String TOTAL_AMOUNT_NOT_POSITIVE = "Total amount must be zero or positive";
     public static final String STATUS_IS_REQUIRED = "Status is required";
     public static final String STATUS_NOT_VALID = "Status is not valid";
+    public static final String CUSTOMER_ID_IS_REQUIRED = "Customer id is required";
     public static final String ORDER_CREATED = "Order created successfully";
     public static final String ORDER_NOT_FOUND = "Order not found";
     public static final String ORDER_UPDATED = "Order updated successfully";
