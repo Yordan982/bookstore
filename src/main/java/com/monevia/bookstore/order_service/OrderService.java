@@ -2,6 +2,7 @@ package com.monevia.bookstore.order_service;
 
 import com.monevia.bookstore.book_service.Book;
 import com.monevia.bookstore.book_service.BookRepository;
+import com.monevia.bookstore.user_service.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -11,16 +12,21 @@ import java.util.List;
 public class OrderService {
     private final OrderRepository orderRepository;
     private final BookRepository bookRepository;
+    private final UserRepository userRepository;
 
-    public OrderService(OrderRepository orderRepository, BookRepository bookRepository) {
+    public OrderService(OrderRepository orderRepository, BookRepository bookRepository, UserRepository userRepository) {
         this.orderRepository = orderRepository;
         this.bookRepository = bookRepository;
+        this.userRepository = userRepository;
     }
 
     public Order createOrder(CreateOrderDTO createOrderDTO) {
         List<Book> foundBooks = bookRepository.findAllById(createOrderDTO.getBookIds());
         if (foundBooks.isEmpty()) {
             throw new IllegalArgumentException(OrderConstants.BOOK_IDS_IS_REQUIRED);
+        }
+        if (!userExists(createOrderDTO.getCustomerId())) {
+            throw new IllegalArgumentException(OrderConstants.CUSTOMER_ID_NOT_FOUND);
         }
         List<String> validBookIds = foundBooks.stream()
                 .map(Book::getId)
@@ -38,5 +44,9 @@ public class OrderService {
         return books.stream()
                 .map(book -> BigDecimal.valueOf(book.getPrice()))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private boolean userExists(String userId) {
+        return userRepository.existsById(userId);
     }
 }
