@@ -30,8 +30,8 @@ public class OrderController {
 
     @GetMapping(value = "/{order_id}/details", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GetOrderDTO> getOrder(
-            @PathVariable String order_id) {
-        GetOrderDTO getOrderDTO = orderService.getOrder(order_id);
+            @PathVariable("order_id") String orderId) {
+        GetOrderDTO getOrderDTO = orderService.getOrder(orderId);
         return ResponseEntity.ok(getOrderDTO);
     }
 }

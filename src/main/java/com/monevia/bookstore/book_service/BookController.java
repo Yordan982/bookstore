@@ -28,8 +28,8 @@ public class BookController {
 
     @GetMapping(value = "/{book_id}/details", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<GetBookDTO> getBook(
-            @PathVariable String book_id) {
-        GetBookDTO bookDTO = bookService.getBook(book_id);
+            @PathVariable("book_id") String bookId) {
+        GetBookDTO bookDTO = bookService.getBook(bookId);
         return ResponseEntity.ok(bookDTO);
     }
 
@@ -46,8 +46,8 @@ public class BookController {
 
     @DeleteMapping("/{book_id}/delete")
     public ResponseEntity<Map<String, String>> deleteBook(
-            @PathVariable String book_id) {
-        String message = bookService.deleteBook(book_id);
+            @PathVariable("book_id") String bookId) {
+        String message = bookService.deleteBook(bookId);
         return ResponseEntity.ok(Map.of("message", message));
     }
 }
