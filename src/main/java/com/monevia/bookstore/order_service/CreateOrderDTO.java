@@ -10,7 +10,6 @@ import java.util.List;
 
 @Data
 public class CreateOrderDTO {
-    @Column(name = "customer_id")
     @NotBlank(message = OrderConstants.CUSTOMER_ID_IS_REQUIRED)
     private String customerId;
 
