@@ -1,16 +1,15 @@
 package com.monevia.bookstore.order_service;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/order")
-@Validated
 public class OrderController {
     private final OrderService orderService;
 
@@ -20,7 +19,7 @@ public class OrderController {
 
     @PostMapping("/create")
     public ResponseEntity<Map<String, Object>> createOrder(
-            @RequestBody @Validated CreateOrderDTO createOrderDTO) {
+            @RequestBody @Valid CreateOrderDTO createOrderDTO) {
         Order order = orderService.createOrder(createOrderDTO);
         Map<String, Object> responseBody = Map.of(
                 "message", OrderConstants.ORDER_CREATED,

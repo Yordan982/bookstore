@@ -3,14 +3,12 @@ package com.monevia.bookstore.user_service;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
-@Validated
 public class UserController {
     private final UserService userService;
 
@@ -21,7 +19,7 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<Map<String, String>> createUser(
             @RequestBody
-            @Validated CreateUserDTO createUserDTO) {
+            @Valid CreateUserDTO createUserDTO) {
         String newUserId = userService.createUser(createUserDTO);
         Map<String, String> responseBody = Map.of("user_id", newUserId);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
