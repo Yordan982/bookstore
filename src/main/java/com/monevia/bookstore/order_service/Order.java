@@ -1,6 +1,8 @@
 package com.monevia.bookstore.order_service;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -19,6 +21,7 @@ public class Order {
     @Column(length = 36, nullable = false, unique = true)
     private String id;
 
+    @NotBlank(message = OrderConstants.CUSTOMER_ID_IS_REQUIRED)
     @Column(name = "customer_id")
     private String customerId;
 
@@ -29,6 +32,7 @@ public class Order {
     @Column(name = "book_id")
     private List<String> bookIds;
 
+    @NotNull(message = OrderConstants.TOTAL_AMOUNT_IS_REQUIRED)
     @Column(name = "total_amount")
     private BigDecimal totalAmount;
 
