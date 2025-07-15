@@ -1,6 +1,7 @@
 package com.monevia.bookstore.book_service;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 
@@ -13,11 +14,11 @@ public class CreateBookDTO {
     @Size(max = 50, message = BookConstants.AUTHOR_MAX_LENGTH)
     private String author;
 
-    @NotBlank(message = BookConstants.PRICE_IS_REQUIRED)
+    @NotNull(message = BookConstants.PRICE_IS_REQUIRED)
     @PositiveOrZero(message = BookConstants.PRICE_NOT_POSITIVE)
     private Double price;
 
-    @NotBlank(message = BookConstants.GENRE_IS_REQUIRED)
+    @NotNull(message = BookConstants.GENRE_IS_REQUIRED)
     private Genre genre;
 
     public CreateBookDTO(String title, String author, Double price, Genre genre) {
