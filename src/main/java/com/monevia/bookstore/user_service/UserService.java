@@ -7,9 +7,11 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
 
     public String createUser(CreateUserDTO userDTO) {
@@ -22,7 +24,7 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
                         UserConstants.USER_NOT_FOUND));
-        user.setName(updateUserDTO.getName());
+        userMapper.updateUserFromDTO(updateUserDTO, user);
         userRepository.save(user);
     }
 }
