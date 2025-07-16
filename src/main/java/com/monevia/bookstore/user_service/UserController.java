@@ -35,4 +35,11 @@ public class UserController {
                 "user_id", userId);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/{user_id}/delete")
+    public ResponseEntity<Map<String, String>> deleteBook(
+            @PathVariable("user_id") String userId) {
+        String message = userService.deleteUser(userId);
+        return ResponseEntity.ok(Map.of("message", message));
+    }
 }
