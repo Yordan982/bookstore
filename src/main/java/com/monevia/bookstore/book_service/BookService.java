@@ -7,9 +7,11 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 public class BookService {
     private final BookRepository bookRepository;
+    private final BookMapper bookMapper;
 
-    public BookService(BookRepository bookRepository) {
+    public BookService(BookRepository bookRepository, BookMapper bookMapper) {
         this.bookRepository = bookRepository;
+        this.bookMapper = bookMapper;
     }
 
     public String createBook(CreateBookDTO bookDTO) {
@@ -29,7 +31,7 @@ public class BookService {
         Book book = bookRepository.findById(bookId).orElseThrow(() ->
                 new ResponseStatusException(HttpStatus.NOT_FOUND,
                         BookConstants.BOOK_NOT_FOUND));
-        book.setPrice(updateBookDTO.getPrice());
+        bookMapper.updateBookFromDTO(updateBookDTO, book);
         bookRepository.save(book);
     }
 
