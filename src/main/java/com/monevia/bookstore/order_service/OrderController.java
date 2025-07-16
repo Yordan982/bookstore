@@ -34,4 +34,15 @@ public class OrderController {
         GetOrderDTO getOrderDTO = orderService.getOrder(orderId);
         return ResponseEntity.ok(getOrderDTO);
     }
+
+    @PatchMapping("/{order_id}/update")
+    public ResponseEntity<Map<String, String>> updateOrder(
+            @PathVariable("order_id") String orderId,
+            @RequestBody @Valid UpdateOrderDTO updateOrderDTO) {
+        orderService.updateOrder(orderId, updateOrderDTO);
+        Map<String, String> response = Map.of(
+                "message", OrderConstants.ORDER_UPDATED,
+                "order_id", orderId);
+        return ResponseEntity.ok(response);
+    }
 }
