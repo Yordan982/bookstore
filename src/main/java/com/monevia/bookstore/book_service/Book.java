@@ -7,11 +7,13 @@ import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
 
 @Data
 @NoArgsConstructor
 @Entity
+@DynamicUpdate
 public class Book {
     @Id
     @GeneratedValue(generator = "uuid2")
