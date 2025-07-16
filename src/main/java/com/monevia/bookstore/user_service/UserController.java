@@ -32,8 +32,7 @@ public class UserController {
         userService.updateUser(userId, updateUserDTO);
         Map<String, String> response = Map.of(
                 "message", UserConstants.USER_UPDATED,
-                "user_id", userId,
-                "name", updateUserDTO.getName());
+                "user_id", userId);
         return ResponseEntity.ok(response);
     }
 }
