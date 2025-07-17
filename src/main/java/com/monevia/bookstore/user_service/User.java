@@ -4,10 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
@@ -33,9 +30,7 @@ public class User {
             regexp = UserConstants.EMAIL_VALIDATION_REGEX)
     private String email;
 
-    @Pattern(
-            regexp = UserConstants.PASSWORD_VALIDATION_REGEX,
-            message = UserConstants.PASSWORD_INVALID)
+    @NotBlank(message = UserConstants.PASSWORD_IS_REQUIRED)
     private String password;
 
     @NotBlank(message = UserConstants.ADDRESS_IS_REQUIRED)
