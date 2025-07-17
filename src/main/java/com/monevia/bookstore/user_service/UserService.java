@@ -15,7 +15,7 @@ public class UserService {
     }
 
     public String createUser(CreateUserDTO userDTO) {
-        User user = new User(userDTO.getName(), userDTO.getEmail().toLowerCase(), userDTO.getAddress());
+        User user = new User(userDTO.getName(), userDTO.getEmail().toLowerCase(), userDTO.getPassword(), userDTO.getAddress());
         userRepository.save(user);
         return user.getId();
     }
