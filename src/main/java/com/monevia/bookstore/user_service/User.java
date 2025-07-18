@@ -22,6 +22,7 @@ public class User {
     @Size(max = 50, message = UserConstants.NAME_MAX_LENGTH)
     private String name;
 
+    @Column(unique = true)
     @NotBlank(message = UserConstants.EMAIL_IS_REQUIRED)
     @Email(message = UserConstants.EMAIL_IS_INVALID,
             regexp = UserConstants.EMAIL_VALIDATION_REGEX)
