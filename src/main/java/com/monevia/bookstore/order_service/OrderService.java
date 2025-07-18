@@ -57,9 +57,8 @@ public class OrderService {
                     .map(Book::getId)
                     .toList();
             updateOrderDTO.setBookIds(validBookIds);
-            if (updateOrderDTO.getTotalAmount() == null) {
-                updateOrderDTO.setTotalAmount(calculateTotalAmount(foundBooks));
-            }
+            // TODO: Add admin checks for more update actions
+            updateOrderDTO.setTotalAmount(calculateTotalAmount(foundBooks));
             order.getBookIds().clear();
             order.getBookIds().addAll(validBookIds);
         }
