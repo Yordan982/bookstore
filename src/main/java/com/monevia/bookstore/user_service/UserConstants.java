@@ -5,6 +5,7 @@ public class UserConstants {
     public static final String NAME_MAX_LENGTH = "Name must be {max} characters or fewer";
     public static final String EMAIL_IS_REQUIRED = "Email is required";
     public static final String EMAIL_IS_INVALID = "Email is not valid";
+    public static final String EMAIL_IS_TAKEN = "Email is already used by another user";
     public static final String EMAIL_VALIDATION_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
     public static final String PASSWORD_VALIDATION_REGEX = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{10,50}$";
     public static final String PASSWORD_ENCRYPTED_REGEX = "^\\$2[aby]\\$.{56}$";
