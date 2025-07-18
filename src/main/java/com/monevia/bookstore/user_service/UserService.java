@@ -19,6 +19,9 @@ public class UserService {
     }
 
     public String createUser(CreateUserDTO userDTO) {
+        if (userRepository.existsByEmail(userDTO.getEmail())) {
+            throw new IllegalArgumentException(UserConstants.EMAIL_IS_TAKEN);
+        }
         User user = new User(userDTO.getName(), userDTO.getEmail().toLowerCase(), encodePassword(userDTO.getPassword()), userDTO.getAddress(), Role.STANDARD);
         userRepository.save(user);
         return user.getId();
@@ -36,6 +39,12 @@ public class UserService {
                         UserConstants.USER_NOT_FOUND));
         if (updateUserDTO.getPassword() != null) {
             updateUserDTO.setPassword(encodePassword(updateUserDTO.getPassword()));
+        }
+        if (updateUserDTO.getEmail() != null) {
+            if (userRepository.existsByEmailAndIdNot(updateUserDTO.getEmail(), user.getId())) {
+                throw new IllegalArgumentException(UserConstants.EMAIL_IS_TAKEN);
+            }
+            updateUserDTO.setEmail(updateUserDTO.getEmail().toLowerCase());
         }
         userMapper.updateUserFromDTO(updateUserDTO, user);
         userRepository.save(user);
