@@ -1,9 +1,6 @@
 package com.monevia.bookstore.user_service;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,11 +34,15 @@ public class User {
     @Size(max = 80, message = UserConstants.ADDRESS_MAX_LENGTH)
     private String address;
 
+    @NotNull(message = UserConstants.ROLE_IS_REQUIRED)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    public User(String name, String email, String password, String address) {
+    public User(String name, String email, String password, String address, Role role) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.address = address;
+        this.role = role;
     }
 }
