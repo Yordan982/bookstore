@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -21,6 +22,12 @@ public class UserService {
         User user = new User(userDTO.getName(), userDTO.getEmail().toLowerCase(), encodePassword(userDTO.getPassword()), userDTO.getAddress());
         userRepository.save(user);
         return user.getId();
+    }
+
+    public GetUserDTO getUserDTO(String userId) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new IllegalArgumentException(UserConstants.USER_NOT_FOUND));
+        return new GetUserDTO(user.getName(), user.getEmail(), user.getAddress());
     }
 
     public void updateUser(String userId, UpdateUserDTO updateUserDTO) {

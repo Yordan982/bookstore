@@ -1,6 +1,7 @@
 package com.monevia.bookstore.user_service;
 
 import jakarta.validation.Valid;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,15 @@ public class UserController {
         Map<String, String> response = Map.of(
                 "message", UserConstants.USER_CREATED,
                 "user_id", userId);
-        return ResponseEntity.ok(response);    }
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(value = "/{user_id}/details", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<GetUserDTO> getUser(
+            @PathVariable("user_id") String userId) {
+        GetUserDTO userDTO = userService.getUserDTO(userId);
+        return ResponseEntity.ok(userDTO);
+    }
 
     @PatchMapping("/{user_id}/update")
     public ResponseEntity<Map<String, String>> updateUser(
