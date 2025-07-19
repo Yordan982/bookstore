@@ -1,9 +1,7 @@
 package com.monevia.bookstore.user_service;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 
 @Service
@@ -35,8 +33,7 @@ public class UserService {
 
     public void updateUser(String userId, UpdateUserDTO updateUserDTO) {
         User user = userRepository.findById(userId).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        UserConstants.USER_NOT_FOUND));
+                new IllegalArgumentException(UserConstants.USER_NOT_FOUND));
         if (updateUserDTO.getPassword() != null) {
             updateUserDTO.setPassword(encodePassword(updateUserDTO.getPassword()));
         }
@@ -52,8 +49,7 @@ public class UserService {
 
     public String deleteUser(String userId) {
         if (!userRepository.existsById(userId)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,
-                    UserConstants.USER_NOT_FOUND);
+            throw new IllegalArgumentException(UserConstants.USER_NOT_FOUND);
         }
         userRepository.deleteById(userId);
         return UserConstants.USER_DELETED;

@@ -3,9 +3,7 @@ package com.monevia.bookstore.order_service;
 import com.monevia.bookstore.book_service.Book;
 import com.monevia.bookstore.book_service.BookRepository;
 import com.monevia.bookstore.user_service.UserRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -49,8 +47,7 @@ public class OrderService {
 
     public void updateOrder(String orderId, UpdateOrderDTO updateOrderDTO) {
         Order order = orderRepository.findById(orderId).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND,
-                        OrderConstants.ORDER_NOT_FOUND));
+                new IllegalArgumentException(OrderConstants.ORDER_NOT_FOUND));
         if (updateOrderDTO.getBookIds() != null && !updateOrderDTO.getBookIds().isEmpty()) {
             List<Book> foundBooks = bookRepository.findAllById(updateOrderDTO.getBookIds());
             List<String> validBookIds = foundBooks.stream()
