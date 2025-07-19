@@ -22,7 +22,9 @@ public class BookController {
             @RequestBody
             @Valid CreateBookDTO createBookDTO) {
         String newBookId = bookService.createBook(createBookDTO);
-        Map<String, String> responseBody = Map.of("id", newBookId);
+        Map<String, String> responseBody = Map.of(
+                "message", BookConstants.BOOK_CREATED,
+                "book_id", newBookId);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
     }
 
