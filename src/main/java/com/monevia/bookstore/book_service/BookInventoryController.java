@@ -29,7 +29,7 @@ public class BookInventoryController {
         bookInventoryService.setBookQuantity(bookId, bookInventoryDTO);
 
         Map<String, String> response = Map.of(
-                "message", String.format(BookConstants.QUANTITY_UPDATED,
+                "message", String.format(BookConstants.QUANTITY_SET,
                         bookInventoryDTO.getQuantity()));
         return ResponseEntity.ok(response);
     }
