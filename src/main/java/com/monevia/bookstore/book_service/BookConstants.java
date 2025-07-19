@@ -9,6 +9,8 @@ public class BookConstants {
     public static final String PRICE_NOT_POSITIVE = "Price must be zero or positive";
     public static final String GENRE_IS_REQUIRED = "Genre is required";
     public static final String QUANTITY_NOT_POSITIVE = "Quantity must be greater than or equal to zero";
+    public static final String QUANTITY_INCREASE_FEWER_THAN_ONE = "Quantity must be increased by at least 1 or more";
+    public static final String QUANTITY_DECREASE_FEWER_THAN_ONE = "Quantity must be decreased by at least 1 or more";
     public static final String QUANTITY_UPDATED = "Quantity updated successfully to %d";
     public static final String QUANTITY_ADDED = "Quantity has been increased by %d";
     public static final String QUANTITY_REMOVED = "Quantity has been decreased by %d";

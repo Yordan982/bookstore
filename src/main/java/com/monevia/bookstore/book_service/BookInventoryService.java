@@ -33,7 +33,9 @@ public class BookInventoryService {
     public void addQuantity(String bookId, int quantity) {
         BookInventory inventory = bookInventoryRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException(BookConstants.BOOK_INVENTORY_NOT_FOUND));
-
+        if (quantity < 1) {
+            throw new IllegalArgumentException(BookConstants.QUANTITY_INCREASE_FEWER_THAN_ONE);
+        }
         inventory.setQuantity(inventory.getQuantity() + quantity);
         bookInventoryRepository.save(inventory);
     }
@@ -41,12 +43,13 @@ public class BookInventoryService {
     public void removeQuantity(String bookId, int quantity) {
         BookInventory inventory = bookInventoryRepository.findById(bookId)
                 .orElseThrow(() -> new IllegalArgumentException(BookConstants.BOOK_INVENTORY_NOT_FOUND));
-
+        if (quantity < 1) {
+            throw new IllegalArgumentException(BookConstants.QUANTITY_DECREASE_FEWER_THAN_ONE);
+        }
         if (inventory.getQuantity() < quantity) {
             throw new IllegalArgumentException(String.format(
                     BookConstants.QUANTITY_INSUFFICIENT, inventory.getQuantity()));
         }
-
         inventory.setQuantity(inventory.getQuantity() - quantity);
         bookInventoryRepository.save(inventory);
     }
