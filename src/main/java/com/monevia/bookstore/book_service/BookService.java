@@ -34,10 +34,20 @@ public class BookService {
                 .orElseGet(() -> new GetBookDTO(book.getTitle(), book.getAuthor(), book.getPrice(), book.getGenre(), null));
     }
 
+    @Transactional
     public void updateBook(String bookId, UpdateBookDTO updateBookDTO) {
         Book book = bookRepository.findById(bookId).orElseThrow(() ->
                 new IllegalArgumentException(BookConstants.BOOK_NOT_FOUND));
         bookMapper.updateBookFromDTO(updateBookDTO, book);
+        if (updateBookDTO.getQuantity() != null) {
+            BookInventory inventory = bookInventoryRepository.findById(bookId).orElse(null);
+            if (inventory == null) {
+                inventory = new BookInventory(book, updateBookDTO.getQuantity());
+            } else {
+                inventory.setQuantity(updateBookDTO.getQuantity());
+            }
+            bookInventoryRepository.save(inventory);
+        }
         bookRepository.save(book);
     }
 

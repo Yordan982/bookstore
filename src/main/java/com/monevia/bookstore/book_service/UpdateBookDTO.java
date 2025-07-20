@@ -2,6 +2,7 @@ package com.monevia.bookstore.book_service;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -21,4 +22,7 @@ public class UpdateBookDTO {
 
     @Enumerated(EnumType.STRING)
     private Genre genre;
+
+    @PositiveOrZero(message = BookConstants.QUANTITY_NOT_POSITIVE)
+    private Integer quantity;
 }
