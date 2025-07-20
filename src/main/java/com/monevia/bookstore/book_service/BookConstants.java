@@ -7,7 +7,7 @@ public class BookConstants {
     public static final String AUTHOR_MAX_LENGTH = "Author must be {max} characters or fewer";
     public static final String PRICE_IS_REQUIRED = "Price is required";
     public static final String PRICE_NOT_POSITIVE = "Price must be zero or positive";
-    public static final String GENRE_IS_REQUIRED = "Genre is required";
+    public static final String GENRE_IS_REQUIRED = "A valid genre is required";
     public static final String QUANTITY_NOT_POSITIVE = "Quantity must be greater than or equal to zero";
     public static final String QUANTITY_INCREASE_FEWER_THAN_ONE = "Quantity must be increased by at least 1 or more";
     public static final String QUANTITY_DECREASE_FEWER_THAN_ONE = "Quantity must be decreased by at least 1 or more";

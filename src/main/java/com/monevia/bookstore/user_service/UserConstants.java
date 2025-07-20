@@ -14,7 +14,7 @@ public class UserConstants {
     public static final String PASSWORD_INVALID = "Password must be 10-50 characters long and include at least one digit, one special character, one uppercase and one lowercase letter";
     public static final String ADDRESS_IS_REQUIRED = "Address is required";
     public static final String ADDRESS_MAX_LENGTH = "Address must be {max} characters or fewer";
-    public static final String ROLE_IS_REQUIRED = "Role is required";
+    public static final String ROLE_IS_REQUIRED = "A valid role is required";
     public static final String USER_NOT_FOUND = "User not found";
     public static final String USER_CREATED = "User created successfully";
     public static final String USER_UPDATED = "User updated successfully";
