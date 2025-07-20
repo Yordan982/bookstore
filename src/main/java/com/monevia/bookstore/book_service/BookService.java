@@ -1,20 +1,26 @@
 package com.monevia.bookstore.book_service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final BookInventoryRepository bookInventoryRepository;
 
-    public BookService(BookRepository bookRepository, BookMapper bookMapper) {
+    public BookService(BookRepository bookRepository, BookMapper bookMapper, BookInventoryRepository bookInventoryRepository) {
         this.bookRepository = bookRepository;
         this.bookMapper = bookMapper;
+        this.bookInventoryRepository = bookInventoryRepository;
     }
 
+    @Transactional
     public String createBook(CreateBookDTO bookDTO) {
         Book book = new Book(bookDTO.getTitle(), bookDTO.getAuthor(), bookDTO.getPrice(), bookDTO.getGenre());
+        BookInventory inventory = new BookInventory(book, bookDTO.getQuantity());
         bookRepository.save(book);
+        bookInventoryRepository.save(inventory);
         return book.getId();
     }
 

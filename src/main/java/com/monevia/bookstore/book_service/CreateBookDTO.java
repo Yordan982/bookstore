@@ -1,9 +1,6 @@
 package com.monevia.bookstore.book_service;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -24,4 +21,8 @@ public class CreateBookDTO {
 
     @NotNull(message = BookConstants.GENRE_IS_REQUIRED)
     private Genre genre;
+
+    @NotNull(message = BookConstants.QUANTITY_IS_REQUIRED)
+    @PositiveOrZero(message = BookConstants.QUANTITY_NOT_POSITIVE)
+    private Integer quantity;
 }
