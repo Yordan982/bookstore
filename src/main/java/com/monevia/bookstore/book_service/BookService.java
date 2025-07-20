@@ -27,7 +27,11 @@ public class BookService {
     public GetBookDTO getBook(String bookId) {
         Book book = bookRepository.findById(bookId).orElseThrow(() ->
                 new IllegalArgumentException(BookConstants.BOOK_NOT_FOUND));
-        return new GetBookDTO(book.getTitle(), book.getPrice());
+
+        return bookInventoryRepository.findById(bookId)
+                .map(inventory -> new GetBookDTO(
+                        book.getTitle(), book.getAuthor(), book.getPrice(), book.getGenre(), inventory.getQuantity()))
+                .orElseGet(() -> new GetBookDTO(book.getTitle(), book.getAuthor(), book.getPrice(), book.getGenre(), null));
     }
 
     public void updateBook(String bookId, UpdateBookDTO updateBookDTO) {
