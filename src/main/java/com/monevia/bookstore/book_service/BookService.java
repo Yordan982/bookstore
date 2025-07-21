@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
@@ -15,7 +16,6 @@ public class BookService {
         this.bookInventoryRepository = bookInventoryRepository;
     }
 
-    @Transactional
     public String createBook(CreateBookDTO bookDTO) {
         Book book = new Book(bookDTO.getTitle(), bookDTO.getAuthor(), bookDTO.getPrice(), bookDTO.getGenre());
         BookInventory inventory = new BookInventory(book, bookDTO.getQuantity());
@@ -23,6 +23,7 @@ public class BookService {
         bookInventoryRepository.save(inventory);
         return book.getId();
     }
+
 
     public GetBookDTO getBook(String bookId) {
         Book book = bookRepository.findById(bookId).orElseThrow(() ->
@@ -34,7 +35,6 @@ public class BookService {
                 .orElseGet(() -> new GetBookDTO(book.getTitle(), book.getAuthor(), book.getPrice(), book.getGenre(), null));
     }
 
-    @Transactional
     public void updateBook(String bookId, UpdateBookDTO updateBookDTO) {
         Book book = bookRepository.findById(bookId).orElseThrow(() ->
                 new IllegalArgumentException(BookConstants.BOOK_NOT_FOUND));
@@ -56,6 +56,9 @@ public class BookService {
             throw new IllegalArgumentException(BookConstants.BOOK_NOT_FOUND);
         }
         bookRepository.deleteById(bookId);
+        if (bookInventoryRepository.existsById(bookId)) {
+            bookInventoryRepository.deleteById(bookId);
+        }
         return BookConstants.BOOK_DELETED;
     }
 }
